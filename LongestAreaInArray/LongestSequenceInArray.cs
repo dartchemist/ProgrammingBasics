@@ -35,10 +35,28 @@ namespace LongestAreaInArray
         {
             var longestSequenceLength = 1;
             var longestSequenceStartIndex = 0;
+            var currentLongestSequenceLength = longestSequenceLength;
+            var currentLongestSequenceStartIndex = longestSequenceStartIndex;
+            var hasIndexChanged = false;
 
-            for (var i = 0; i < inputSequence.Length; ++i)
+            for (var i = 0; i < inputSequence.Length - 1; ++i)
             {
-                
+                if (inputSequence[i] == inputSequence[i + 1])
+                {
+                    if (!hasIndexChanged)
+                    {
+                        currentLongestSequenceStartIndex = i;
+                    }
+                    ++currentLongestSequenceLength;
+                }
+                else if (longestSequenceLength < currentLongestSequenceLength)
+                {
+                    longestSequenceLength = currentLongestSequenceLength;
+                    longestSequenceStartIndex = currentLongestSequenceStartIndex;   
+                }
+                currentLongestSequenceLength = 1;
+                currentLongestSequenceStartIndex = i;
+                hasIndexChanged = false;
             }
             return null;
         }
